@@ -1,1 +1,1 @@
-# -tinystacks-terraform-ecs-module
+# tinystacks-terraform-ecs-module
