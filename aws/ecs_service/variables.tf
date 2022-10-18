@@ -36,8 +36,8 @@ variable "ts_aws_ecs_task_definition_container_definitions" {
   default     = <<EOF
   [
     {
-      "name": "acme-api",
-      "image": "ajjester/acme-api:latest",
+      "name": "aws-docker-templates-express",
+      "image": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
       "portMappings": [
         {
           "containerPort": 3000
@@ -46,8 +46,8 @@ variable "ts_aws_ecs_task_definition_container_definitions" {
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/acme-api",
+          "awslogs-region": "us-east-2",
+          "awslogs-group": "/ecs/aws-docker-templates-express",
           "awslogs-stream-prefix": "ecs"
         }
       }
