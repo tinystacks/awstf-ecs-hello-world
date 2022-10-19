@@ -103,6 +103,28 @@
             }
           },
           {
+            "PolicyName": "TerraformBackendPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject",
+                    "s3:DeleteObject"
+                  ],
+                  "Resource": "arn:aws:s3:::iac-source-artifact-bucket-dev/ad9538bd-9cbf-4355-9d1d-3e4d3c0c6eba/test-nef-tf-stack-three/tf-state"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:ListBucket",
+                  "Resource": "arn:aws:s3:::iac-source-artifact-bucket-dev"
+                }
+              ]
+            }
+          },
+          {
             "PolicyName": "PublishCfnEventsPolicy",
             "PolicyDocument": {
               "Version": "2012-10-17",
@@ -131,10 +153,10 @@
     }
   },
   "Outputs": {
-    "RoleArn" : {
-      "Description" : "Arn for the execution role",
-      "Value" : {
-        "Fn::GetAtt" : [
+    "RoleArn": {
+      "Description": "Arn for the execution role",
+      "Value": {
+        "Fn::GetAtt": [
           "Role",
           "Arn"
         ]
