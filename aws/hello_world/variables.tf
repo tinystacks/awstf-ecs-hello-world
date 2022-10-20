@@ -275,25 +275,21 @@ variable "acme_api_aws_ecs_task_definition_container_definitions" {
   description = "Acme API AWS ECS task definition container definitions"
   type        = string
   default     = <<EOF
-  [
-    {
-      "name": "acme-api",
-      "image": "ajjester/acme-api:latest",
-      "portMappings": [
-        {
-          "containerPort": 3000
-        }
-      ],
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-region": "us-east-1",
-          "awslogs-group": "/ecs/acme-api",
-          "awslogs-stream-prefix": "ecs"
-        }
-      }
-    }
-  ]
+[{
+"name": "hello-world-express",
+"image": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
+"portMappings": [{
+	"containerPort": 3000
+}],
+"logConfiguration": {
+	"logDriver": "awslogs",
+	"options": {
+		"awslogs-region": "us-east-1",
+		"awslogs-group": "/ecs/hello_world",
+		"awslogs-stream-prefix": "ecs"
+	}
+}
+}]
   EOF
 }
 
