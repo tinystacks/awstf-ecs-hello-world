@@ -19,30 +19,6 @@ output "hello_world_aws_subnet_private_isolated_map" {
 }
 
 
-output "hello_world_aws_instance_public_igw_public_ip_map" {
-  description = "Hello World AWS Instance public IGW public IP"
-  value = {
-    for each_instance in module.hello_world_aws_instance_public_igw :
-    each_instance.ts_aws_instance_id => each_instance.ts_aws_instance_public_ip
-  }
-}
-
-output "hello_world_aws_instance_private_ngw_private_ip_map" {
-  description = "Hello World AWS Instance private NGW private IP"
-  value = {
-    for each_instance in module.hello_world_aws_instance_private_ngw :
-    each_instance.ts_aws_instance_id => each_instance.ts_aws_instance_private_ip
-  }
-}
-
-output "hello_world_aws_instance_private_isolated_private_ip_map" {
-  description = "Hello World AWS Instance private isolated private IP"
-  value = {
-    for each_instance in module.hello_world_aws_instance_private_isolated :
-    each_instance.ts_aws_instance_id => each_instance.ts_aws_instance_private_ip
-  }
-}
-
 output "acme_api_aws_alb_url" {
   description = "TinyStacks AWS ALB URL"
   value = "http://${module.acme_api_aws_alb.ts_aws_alb_dns_name}"
