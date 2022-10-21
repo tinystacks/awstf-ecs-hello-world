@@ -24,9 +24,9 @@ variable "hello_world_public_igw_cidr_blocks" {
   description = "Hello World Availability Zone CIDR Mapping for Public IGW subnets"
  
   default = {
-    "us-east-1b" = 1
-    "us-east-1d" = 2
-    "us-east-1f" = 3
+    "us-east-2a" = 1
+    "us-east-2b" = 2
+    "us-east-2c" = 3
   }
 }
 
@@ -37,9 +37,9 @@ variable "hello_world_private_ngw_cidr_blocks" {
   description = "Hello World Availability Zone CIDR Mapping for Private NGW subnets"
  
   default = {
-    "us-east-1b" = 4
-    "us-east-1d" = 5
-    "us-east-1f" = 6
+    "us-east-2a" = 4
+    "us-east-2b" = 5
+    "us-east-2c" = 6
   }
 }
 
@@ -50,9 +50,9 @@ variable "hello_world_private_isolated_cidr_blocks" {
   description = "Hello World Availability Zone CIDR Mapping for Private isolated subnets"
  
   default = {
-    "us-east-1b" = 7
-    "us-east-1d" = 8
-    "us-east-1f" = 9
+    "us-east-2a" = 7
+    "us-east-2b" = 8
+    "us-east-2c" = 9
   }
 }
 
