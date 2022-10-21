@@ -276,7 +276,7 @@ variable "acme_api_aws_ecs_task_definition_container_definitions" {
   type        = string
   default     = <<EOF
 [{
-"name": "hello-world-express",
+"name": "hello-world-service",
 "image": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
 "portMappings": [{
 	"containerPort": 3000
