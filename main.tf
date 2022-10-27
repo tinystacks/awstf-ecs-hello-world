@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.0" 
-  backend "s3" {}
+  # backend "s3" {}
 
   required_providers {
     aws = {
@@ -15,7 +15,8 @@ provider "aws" {
 }
 
 module "ts_aws_vpc_hello_world" {
-  source = "../vpc"
+  # source = "../vpc"
+  source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/vpc?ref=0.1.0"
 
   ts_aws_vpc_cidr_block   = var.hello_world_aws_vpc_cidr_block
   ts_aws_vpc_cidr_newbits = var.hello_world_aws_vpc_cidr_newbits
@@ -34,7 +35,8 @@ resource "aws_ecs_cluster" "acme_aws_ecs_cluster" {
 }
 
 module "acme_api_alb_aws_security_group" {
-  source = "../security_group"
+  # source = "../security_group"
+  source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/security_group?ref=0.1.0"
 
   ts_aws_security_group_vpc_id = module.ts_aws_vpc_hello_world.ts_aws_vpc_id
   ts_aws_security_group_rules  = var.acme_api_alb_aws_security_group_rules
@@ -42,7 +44,8 @@ module "acme_api_alb_aws_security_group" {
 }
 
 module "acme_api_aws_alb" {
-  source = "../alb"
+  # source = "../alb"
+  source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/alb?ref=0.1.0"
 
   ts_aws_lb_target_group_vpc_id = module.ts_aws_vpc_hello_world.ts_aws_vpc_id
   ts_aws_alb_subnets            = values(module.ts_aws_vpc_hello_world.ts_aws_subnet_public_igw_map)
@@ -63,7 +66,8 @@ module "acme_api_aws_alb" {
 }
 
 module "acme_api_aws_security_group" {
-  source = "../security_group"
+  # source = "../security_group"
+  source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/security_group?ref=0.1.0"
 
   ts_aws_security_group_vpc_id = module.ts_aws_vpc_hello_world.ts_aws_vpc_id
   ts_aws_security_group_rules  = var.acme_api_aws_security_group_rules
@@ -71,7 +75,8 @@ module "acme_api_aws_security_group" {
 }
 
 module "acme_api_aws_ecs_service" {
-  source = "../ecs_service"
+  # source = "../ecs_service"
+  source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/ecs_service?ref=0.1.0"
 
   ts_aws_ecs_service_cluster                        = aws_ecs_cluster.acme_aws_ecs_cluster.id
   ts_aws_ecs_service_subnets                        = values(module.ts_aws_vpc_hello_world.ts_aws_subnet_private_ngw_map)
