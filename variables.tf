@@ -111,11 +111,6 @@ variable "hello_world_aws_instance_type" {
   default     = "t2.micro"
 }
 
-# variable "hello_world_aws_instance_key_name" {
-#   description = "Hello World AWS Instance Key Name"
-#   type        = string
-# }
-
 /* */
 
 variable "acme_aws_ecs_cluster_name" {
