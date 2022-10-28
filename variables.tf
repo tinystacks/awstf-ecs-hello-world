@@ -1,6 +1,7 @@
 variable "hello_world_aws_region" {
   description = "Hello world AWS region"
   type        = string
+  default     = "us-east-2"
 }
 
 /* */
@@ -110,11 +111,6 @@ variable "hello_world_aws_instance_type" {
   default     = "t2.micro"
 }
 
-variable "hello_world_aws_instance_key_name" {
-  description = "Hello World AWS Instance Key Name"
-  type        = string
-}
-
 /* */
 
 variable "acme_aws_ecs_cluster_name" {
@@ -186,7 +182,7 @@ variable "acme_api_aws_alb_load_balancer_type" {
 variable "acme_api_aws_lb_target_group_port" {
   description = "Acme API AWS LB target group port"
   type        = number
-  default     = 3000
+  default     = 8000
 }
 
 variable "acme_api_aws_lb_target_group_protocol" {
@@ -210,7 +206,7 @@ variable "acme_api_aws_lb_target_group_health_check_enabled" {
 variable "acme_api_aws_lb_target_group_health_check_path" {
   description = "Acme API AWS LB target group health check path"
   type        = string
-  default     = "/health"
+  default     = "/healthy"
 }
 
 variable "acme_api_aws_alb_listener_port" {
@@ -249,8 +245,8 @@ variable "acme_api_aws_security_group_rules" {
     {
       rule_type   = "ingress"
       description = "acme-api"
-      from_port   = 3000
-      to_port     = 3000
+      from_port   = 8000
+      to_port     = 8000
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     },
@@ -276,16 +272,16 @@ variable "acme_api_aws_ecs_task_definition_container_definitions" {
   type        = string
   default     = <<EOF
 [{
-"name": "hello-world-service",
+"name": "acme-api",
 "image": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
 "portMappings": [{
-	"containerPort": 3000
+	"containerPort": 8000
 }],
 "logConfiguration": {
 	"logDriver": "awslogs",
 	"options": {
-		"awslogs-region": "us-east-1",
-		"awslogs-group": "/ecs/hello_world",
+		"awslogs-region": "us-east-2",
+		"awslogs-group": "/ecs/acme-api",
 		"awslogs-stream-prefix": "ecs"
 	}
 }
