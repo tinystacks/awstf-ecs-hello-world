@@ -59,6 +59,7 @@ variable "hello_world_private_isolated_cidr_blocks" {
 
 /* */
 
+// Not Used
 variable "hello_world_vpc_security_group_rules" {
   description = "Hello World VPC Security Group rules"
 
@@ -93,18 +94,21 @@ variable "hello_world_vpc_security_group_rules" {
 
 /* */
 
+// Not Used
 variable "hello_world_aws_ami_filter_name_values" {
   description = "Hello World AWS AMI filter name:values"
   type        = list(string)
   default     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"] 
 }
 
+// Not Used
 variable "hello_world_aws_ami_owners" {
   description = "Hello World AWS AMI owners"
   type        = list(string)
   default     = ["099720109477"] 
 }
 
+// Not Used
 variable "hello_world_aws_instance_type" {
   description = "Hello World AWS Instance type"
   type        = string
@@ -125,8 +129,15 @@ variable "acme_api_aws_ecs_service_name" {
   default     = "acme-api"
 }
 
+variable "acme_api_aws_ecs_container_name" {
+  description = "Acme API AWS ECS Container Name"
+  type        = string
+  default     = "acme-api"
+}
+
 /* */
 
+// We don't support List<Map> in the sdk yet; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_alb_aws_security_group_rules" {
   description = "Acme API ALB AWS Security Group rules"
 
@@ -167,12 +178,14 @@ variable "acme_api_alb_aws_security_group_rules" {
   ]
 }
 
+// If this is set to true, it's impossible to test; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_alb_internal" {
   description = "Acme API AWS ALB internal"
   type        = bool
   default     = false
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_alb_load_balancer_type" {
   description = "Acme API AWS ALB load balancer type"
   type        = string
@@ -185,12 +198,14 @@ variable "acme_api_aws_lb_target_group_port" {
   default     = 8000
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_lb_target_group_protocol" {
   description = "Acme API AWS LB target group protocol"
   type        = string
   default     = "HTTP"
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_lb_target_group_target_type" {
   description = "Acme API AWS LB target group target type"
   type        = string
@@ -209,18 +224,21 @@ variable "acme_api_aws_lb_target_group_health_check_path" {
   default     = "/healthy"
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_alb_listener_port" {
   description = "Acme API AWS ALB listener port"
   type        = string
   default     = "80"
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_alb_listener_protocol" {
   description = "Acme API AWS ALB listener protocol"
   type        = string
   default     = "HTTP"
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_alb_listener_default_action_type" {
   description = "Acme API AWS ALB listener default action type"
   type        = string
@@ -229,6 +247,7 @@ variable "acme_api_aws_alb_listener_default_action_type" {
 
 /* */
 
+// Our sdk doesn't support List<Map> so we have no way to ingest this;  for now it will be re-defined in main.tf using the port variable instead.
 variable "acme_api_aws_security_group_rules" {
   description = "Acme API AWS Security Group rules"
 
@@ -261,12 +280,14 @@ variable "acme_api_aws_security_group_rules" {
   ]
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_ecs_service_launch_type" {
   description = "Acme API AWS ECS Service launch type"
   type        = string
   default     = "FARGATE"
 }
 
+// We really only need to accept the image url; everything else here was already declared in other variables.
 variable "acme_api_aws_ecs_task_definition_container_definitions" {
   description = "Acme API AWS ECS task definition container definitions"
   type        = string
@@ -301,6 +322,7 @@ variable "acme_api_aws_ecs_task_definition_memory" {
   default     = 512
 }
 
+// This won't work for any value other than the default; this parameter will remain defaulted and not exposed in the source
 variable "acme_api_aws_ecs_task_definition_requires_compatibilities" {
   description = "Acme API AWS ECS task definition requires compatibilities"
   type        = list(string)

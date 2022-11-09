@@ -1,0 +1,179 @@
+{
+  "owner": "group:TinyStacks",
+  "name": "Aws Terrafrom ECS Hello World",
+  "description": "This stack launches a VPC, an Application Load Balancer, and an ECS Farget Cluster and Service with a hello world app pre-loaded.",
+  "cloudProvider": "aws",
+  "repository": {
+    "cloneUrl": "https://github.com/tinystacks/awstf-ecs-hello-world.git",
+    "defaultBranch": "main"
+  },
+  "infrastructureCodeType": {
+    "format": "AWS_CDK",
+    "language": "typescript"
+  },
+  "accountId": "849087520365",
+  "region": "us-east-2",
+  "parameters": {
+    "hello_world_aws_region": {
+      "defaultValue": "us-east-2",
+      "displayName": "Deployment Region",
+      "propertyType": "String",
+      "description": "What region should we deploy your stack in?",
+      "required": false
+    },
+    "hello_world_aws_vpc_cidr_block": {
+      "defaultValue": "10.0.0.0/16",
+      "displayName": "Vpc CIDR Block",
+      "propertyType": "String",
+      "description": "What CIDR block would you like your Vpc to use?",
+      "required": false,
+      "categories": ["network"]
+    },
+    "hello_world_aws_vpc_cidr_newbits": {
+      "defaultValue": 4,
+      "displayName": "Subnet newbits",
+      "propertyType": "Number",
+      "description": "How many newbits should each subnet have? (i.e. for a Vpc with mask /16 and subnets with mask /20, use 4)",
+      "required": false,
+      "categories": ["network"]
+    },
+    "hello_world_public_igw_cidr_blocks": {
+      "defaultValue": {
+        "us-east-2a": 1,
+        "us-east-2b": 2,
+        "us-east-2c": 3
+      },
+      "displayName": "Public Subnet Availability Zones",
+      "propertyType": "Map",
+      "description": "Which availability zones should the public subnet reside in?",
+      "required": false,
+      "categories": ["network"]
+    },
+    "hello_world_private_ngw_cidr_blocks": {
+      "defaultValue": {
+        "us-east-2a": 4,
+        "us-east-2b": 5,
+        "us-east-2c": 6
+      },
+      "displayName": "Private Subnet Availability Zones",
+      "propertyType": "Map",
+      "description": "Which availability zones should the private subnet reside in?",
+      "required": false,
+      "categories": ["network"]
+    },
+    "hello_world_private_isolated_cidr_blocks": {
+      "defaultValue": {
+        "us-east-2a": 7,
+        "us-east-2b": 8,
+        "us-east-2c": 9
+      },
+      "displayName": "Isolated Subnet Availability Zones",
+      "propertyType": "Map",
+      "description": "Which availability zones should the isolated subnet reside in?",
+      "required": false,
+      "categories": ["network"]
+    },
+    "acme_aws_ecs_cluster_name": {
+      "defaultValue": "hello-world",
+      "displayName": "Cluster Name",
+      "propertyType": "String",
+      "description": "What do you want to call your cluster?",
+      "required": false
+    },
+    "acme_api_aws_ecs_service_name": {
+      "defaultValue": "hello-world-api",
+      "displayName": "Service Name",
+      "propertyType": "String",
+      "description": "What do you want to call your service?",
+      "required": false
+    },
+    "acme_api_aws_ecs_container_name": {
+      "defaultValue": "hello-world-api",
+      "displayName": "Container Name",
+      "propertyType": "String",
+      "description": "What do you want to call your service?",
+      "required": false
+    },
+    "acme_api_aws_lb_target_group_port": {
+      "defaultValue": 8000,
+      "displayName": "Application Port",
+      "propertyType": "Number",
+      "description": "What port does the application run on? (Only change this if you update the Container Definition to match!)",
+      "required": false,
+      "categories": ["buildAndScale"]
+    },
+    "acme_api_aws_ecs_task_definition_container_definitions": {
+      "defaultValue": "[{\"name\":\"hello-world-api\",\"image\":\"public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86\",\"portMappings\":[{\"containerPort\":8000}],\"logConfiguration\":{\"logDriver\":\"awslogs\",\"options\":{\"awslogs-region\":\"us-east-2\",\"awslogs-group\":\"/ecs/hello-world-api\",\"awslogs-stream-prefix\":\"ecs\"}}}]",
+      "displayName": "Container Definition",
+      "propertyType": "String",
+      "description": "What Container Definition would you like to launch? (Only change this if you update the Application Port to match!)",
+      "required": false,
+      "categories": ["buildAndScale"]
+    },
+    "acme_api_aws_lb_target_group_health_check_enabled": {
+      "defaultValue": true,
+      "displayName": "Health Checks Enabled",
+      "propertyType": "Number",
+      "description": "Do you want to enable health checks on the application?",
+      "required": false
+    },
+    "acme_api_aws_lb_target_group_health_check_path": {
+      "defaultValue": "/healthy",
+      "displayName": "Health Checks Enabled",
+      "propertyType": "String",
+      "description": "What endpoint should be used for health checks? (If enabled)",
+      "required": false
+    },
+    "acme_api_aws_ecs_task_definition_cpu": {
+      "defaultValue": 256,
+      "displayName": "CPU",
+      "propertyType": "Number",
+      "description": "How much CPU does the app need?",
+      "required": false,
+      "categories": ["buildAndScale"]
+    },
+    "acme_api_aws_ecs_task_definition_memory": {
+      "defaultValue": 512,
+      "displayName": "Memory",
+      "propertyType": "Number",
+      "description": "How much Memory (in MB) does the app need?",
+      "required": false,
+      "categories": ["buildAndScale"]
+    },
+    "acme_api_aws_ecs_service_desired_count": {
+      "defaultValue": 1,
+      "displayName": "Desired Task Count",
+      "propertyType": "Number",
+      "description": "How many instances of the app should be launched?",
+      "required": false,
+      "categories": ["buildAndScale"]
+    },
+    "acme_api_aws_iam_role_ecs_task_execution_role_name": {
+      "defaultValue": "ecs-task-execution-role",
+      "displayName": "ECS Task Execution Role Name",
+      "propertyType": "Number",
+      "description": "Name your execution role:",
+      "required": false
+    }
+  },
+  "parameterCategories": {
+    "buildAndScale": {
+      "description": "Your stack's build and scale settings can be edited here. These can be updated later too.",
+      "displayName": "Build & Scale"
+    },
+    "network": {
+      "description": "These settings apply to the network setup and configuration on AWS.",
+      "displayName": "Network"
+    }
+  },
+  "requirements": [
+    {
+      "count": 1,
+      "quotaId": "AWS_VPC"
+    },
+    {
+      "count": 3,
+      "quotaId": "AWS_EIP"
+    }
+  ]
+}

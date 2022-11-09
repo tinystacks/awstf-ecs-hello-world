@@ -66,7 +66,24 @@ module "acme_api_aws_security_group" {
   source = "git::https://github.com/tinystacks/tinystacks-terraform-modules.git//aws/modules/security_group?ref=0.2.0"
 
   ts_aws_security_group_vpc_id = module.ts_aws_vpc_hello_world.ts_aws_vpc_id
-  ts_aws_security_group_rules  = var.acme_api_aws_security_group_rules
+  ts_aws_security_group_rules  = [
+    {
+      rule_type   = "ingress"
+      description = "acme-api"
+      from_port   = var.acme_api_aws_lb_target_group_port
+      to_port     = var.acme_api_aws_lb_target_group_port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      rule_type   = "egress"
+      description = "Outbound"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
 
 }
 
@@ -87,5 +104,5 @@ module "acme_api_aws_ecs_service" {
   ts_aws_ecs_service_desired_count                    = var.acme_api_aws_ecs_service_desired_count
   ts_aws_iam_role_ecs_task_execution_role_name        = var.acme_api_aws_iam_role_ecs_task_execution_role_name
   ts_aws_ecs_service_load_balancer_container_port     = var.acme_api_aws_lb_target_group_port
-
+  ts_aws_ecs_container_name                           = var.acme_api_aws_ecs_container_name
 }
