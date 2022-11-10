@@ -101,13 +101,13 @@
     "acme_api_aws_lb_target_group_health_check_enabled": {
       "defaultValue": true,
       "displayName": "Health Checks Enabled",
-      "propertyType": "Number",
+      "propertyType": "Boolean",
       "description": "Do you want to enable health checks on the application?",
       "required": false
     },
     "acme_api_aws_lb_target_group_health_check_path": {
       "defaultValue": "/healthy",
-      "displayName": "Health Checks Enabled",
+      "displayName": "Health Check Endpoint",
       "propertyType": "String",
       "description": "What endpoint should be used for health checks? (If enabled)",
       "required": false
@@ -139,7 +139,7 @@
     "acme_api_aws_iam_role_ecs_task_execution_role_name": {
       "defaultValue": "ecs-task-execution-role",
       "displayName": "ECS Task Execution Role Name",
-      "propertyType": "Number",
+      "propertyType": "String",
       "description": "Name your execution role:",
       "required": false
     }
