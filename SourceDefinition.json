@@ -1,6 +1,6 @@
 {
   "owner": "group:TinyStacks",
-  "name": "Aws Terrafrom ECS Hello World",
+  "name": "aws-terrafrom-ecs-hello-world",
   "description": "This stack launches a VPC, an Application Load Balancer, and an ECS Farget Cluster and Service with a hello world app pre-loaded.",
   "cloudProvider": "aws",
   "repository": {
@@ -8,8 +8,8 @@
     "defaultBranch": "main"
   },
   "infrastructureCodeType": {
-    "format": "AWS_CDK",
-    "language": "typescript"
+    "format": "TERRAFORM",
+    "language": "hcl"
   },
   "accountId": "849087520365",
   "region": "us-east-2",
