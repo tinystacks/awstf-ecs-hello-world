@@ -90,22 +90,6 @@
                 }
               ]
             }
-          },
-          {
-            "Fn::Transform": {
-              "Name": "AWS::Include",
-              "Parameters": {
-                 "Location": "s3://tinystacks/cloudformation-templates/publish-cfn-events-inline-policy/snippet.json"
-              }
-            }
-          },
-          {
-            "Fn::Transform": {
-              "Name": "AWS::Include",
-              "Parameters": {
-                 "Location": "s3://tinystacks/cloudformation-templates/cdk-bootstrap-inline-policy/snippet.json"
-              }
-            }
           }
         ],
         "Tags": [
@@ -133,10 +117,6 @@
                 "iam:*Tag*",
                 "iam:Untag*",
                 "iam:Describe*",
-                "iam:CreateInstanceProfile",
-                "iam:DeleteInstanceProfile",
-                "iam:AddRoleToInstanceProfile",
-                "iam:RemoveRoleFromInstanceProfile",
                 "iam:CreatePolicy*",
                 "iam:DeletePolicy*",
                 "iam:CreateRole",
@@ -178,33 +158,23 @@
             {
               "Effect": "Allow",
               "Action": [
-                "autoscaling:Describe*",
-                "autoscaling:*Tag*",
-                "autoscaling:CreateScalingPlan",
-                "autoscaling:GetScalingPlanResourceForecastData",
-                "autoscaling:UpdateScalingPlan",
-                "autoscaling:DeleteScalingPlan",
-                "autoscaling:CreateLaunchConfiguration",
-                "autoscaling:DeleteLaunchConfiguration",
-                "autoscaling:CreateAutoScalingGroup",
-                "autoscaling:DeleteAutoScalingGroup",
-                "autoscaling:TerminateInstanceInAutoScalingGroup",
-                "autoscaling:UpdateAutoScalingGroup",
-                "autoscaling:PutScalingPolicy",
-                "autoscaling:DeletePolicy",
-                "autoscaling:ExecutePolicy",
-                "autoscaling:DeleteLifecycleHook",
-                "autoscaling:PutLifecycleHook",
-                "autoscaling:BatchDeleteScheduledAction",
-                "autoscaling:DeleteScheduledAction",
-                "application-autoscaling:Describe*",
-                "application-autoscaling:*Tag*",
-                "application-autoscaling:RegisterScalableTarget",
-                "application-autoscaling:DeregisterScalableTarget",
-                "application-autoscaling:PutScalingPolicy",
-                "application-autoscaling:DeleteScalingPolicy",
-                "application-autoscaling:DeleteScheduledAction",
-                "application-autoscaling:PutScheduledAction"
+                "application-autoscaling:*",
+                "ecs:DescribeServices",
+                "ecs:UpdateService",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:PutMetricAlarm",
+                "cloudwatch:DeleteAlarms",
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics",
+                "cloudwatch:DisableAlarmActions",
+                "cloudwatch:EnableAlarmActions",
+                "iam:CreateServiceLinkedRole",
+                "sns:CreateTopic",
+                "sns:Subscribe",
+                "sns:Get*",
+                "sns:List*"
               ],
               "Resource": "*"
             }
@@ -217,11 +187,11 @@
         ]
       }
     },
-    "ComputePolicy": {
+    "NetworkingPolicy": {
       "Type": "AWS::IAM::ManagedPolicy",
       "Properties": {
         "ManagedPolicyName": {
-          "Fn::Sub": "${AWS::StackName}-compute-policy"
+          "Fn::Sub": "${AWS::StackName}-networking-policy"
         },
         "PolicyDocument": {
           "Version": "2012-10-17",
@@ -231,18 +201,6 @@
               "Action": [
                 "ec2:Describe*",
                 "ec2:*Tag*",
-                "ec2:CreateImage",
-                "ec2:CopyImage",
-                "ec2:ExportImage",
-                "ec2:ImportImage",
-                "ec2:ImportImage",
-                "ec2:RegisterImage",
-                "ec2:DeregisterImage",
-                "ec2:StartInstances",
-                "ec2:RunInstances",
-                "ec2:RebootInstances",
-                "ec2:TerminateInstances",
-                "ec2:StopInstances",
                 "ec2:CreateInternetGateway",
                 "ec2:AttachInternetGateway",
                 "ec2:DetachInternetGateway",
@@ -292,7 +250,58 @@
                 "ec2:ModifyAddressAttribute",
                 "ec2:ResetAddressAttribute",
                 "ec2:AllocateHosts",
-                "ec2:ModifyInstanceAttribute"
+                "elasticloadbalancing:Describe*",
+                "elasticloadbalancing:*Tag*",
+                "elasticloadbalancing:CreateListener",
+                "elasticloadbalancing:ModifyListener",
+                "elasticloadbalancing:DeleteListener",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:ModifyTargetGroup",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:ModifyTargetGroupAttributes",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:SetSecurityGroups"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "Role"
+          }
+        ]
+      }
+    },
+    "ComputePolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "ManagedPolicyName": {
+          "Fn::Sub": "${AWS::StackName}-compute-policy"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ecs:List*",
+                "ecs:Describe*",
+                "ecs:*Tag*",
+                "ecs:CreateCluster",
+                "ecs:UpdateCluster",
+                "ecs:DeleteCluster",
+                "ecs:CreateService",
+                "ecs:UpdateService",
+                "ecs:DeleteService",
+                "ecs:CreateTaskDefinition",
+                "ecs:UpdateTaskDefinition",
+                "ecs:DeleteTaskDefinition",
+                "ecs:DeregisterTaskDefinition",
+                "ecs:RegisterTaskDefinition"
               ],
               "Resource": "*"
             }
@@ -317,7 +326,6 @@
             {
               "Effect": "Allow",
               "Action": [
-                "cloudformation:*",
                 "cloudwatch:*Tag*",
                 "cloudwatch:DeleteDashboards",
                 "cloudwatch:Get*",
@@ -333,53 +341,6 @@
                 "logs:PutResourcePolicy",
                 "logs:PutRetentionPolicy",
                 "logs:*LogEvents"
-              ],
-              "Resource": "*"
-            }
-          ]
-        },
-        "Roles": [
-          {
-            "Ref": "Role"
-          }
-        ]
-      }
-    },
-    "CustomResourcePolicy": {
-      "Type": "AWS::IAM::ManagedPolicy",
-      "Properties": {
-        "ManagedPolicyName": {
-          "Fn::Sub": "${AWS::StackName}-custom-resource-policy"
-        },
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "lambda:List*",
-                "lambda:Get*",
-                "lambda:*Tag*",
-                "lambda:CreateFunction",
-                "lambda:UpdateFunction",
-                "lambda:DeleteFunction",
-                "lambda:AddPermission",
-                "lambda:RemovePermission",
-                "lambda:InvokeFunction",
-                "lambda:DeleteFunctionCodeSigningConfig",
-                "lambda:DeleteFunctionConcurrency",
-                "lambda:DeleteFunctionEventInvokeConfig",
-                "lambda:PutFunctionCodeSigningConfig",
-                "lambda:PutFunctionConcurrency",
-                "lambda:PutFunctionEventInvokeConfig",
-                "lambda:UpdateFunctionCode",
-                "lambda:UpdateFunctionCodeSigningConfig",
-                "lambda:UpdateFunctionConfiguration",
-                "lambda:UpdateFunctionEventInvokeConfig",
-                "lambda:AddLayerVersionPermission",
-                "lambda:DeleteLayerVersion",
-                "lambda:PublishLayerVersion",
-                "lambda:RemoveLayerVersionPermission"
               ],
               "Resource": "*"
             }
