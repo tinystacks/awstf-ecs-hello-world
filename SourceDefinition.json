@@ -38,37 +38,25 @@
       "categories": ["network"]
     },
     "hello_world_public_igw_cidr_blocks": {
-      "defaultValue": {
-        "us-east-2a": 1,
-        "us-east-2b": 2,
-        "us-east-2c": 3
-      },
+      "defaultValue": "{ \"us-east-2a\": 1, \"us-east-2b\": 2, \"us-east-2c\": 3 }",
       "displayName": "Public Subnet Availability Zones",
-      "propertyType": "Map",
+      "propertyType": "String",
       "description": "Which availability zones should the public subnet reside in?",
       "required": false,
       "categories": ["network"]
     },
     "hello_world_private_ngw_cidr_blocks": {
-      "defaultValue": {
-        "us-east-2a": 4,
-        "us-east-2b": 5,
-        "us-east-2c": 6
-      },
+      "defaultValue": "{ \"us-east-2a\": 4, \"us-east-2b\": 5, \"us-east-2c\": 6 }",
       "displayName": "Private Subnet Availability Zones",
-      "propertyType": "Map",
+      "propertyType": "String",
       "description": "Which availability zones should the private subnet reside in?",
       "required": false,
       "categories": ["network"]
     },
     "hello_world_private_isolated_cidr_blocks": {
-      "defaultValue": {
-        "us-east-2a": 7,
-        "us-east-2b": 8,
-        "us-east-2c": 9
-      },
+      "defaultValue": "{ \"us-east-2a\": 7, \"us-east-2b\": 8, \"us-east-2c\": 9 }",
       "displayName": "Isolated Subnet Availability Zones",
-      "propertyType": "Map",
+      "propertyType": "String",
       "description": "Which availability zones should the isolated subnet reside in?",
       "required": false,
       "categories": ["network"]
