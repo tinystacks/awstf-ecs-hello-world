@@ -97,7 +97,23 @@ module "acme_api_aws_ecs_service" {
 
   ts_aws_ecs_service_name                             = var.acme_api_aws_ecs_service_name
   ts_aws_ecs_service_launch_type                      = var.acme_api_aws_ecs_service_launch_type
-  ts_aws_ecs_task_definition_container_definitions    = var.acme_api_aws_ecs_task_definition_container_definitions
+  ts_aws_ecs_task_definition_container_definitions    = jsonencode([
+    {
+      "name": "${var.acme_api_aws_ecs_container_name}",
+      "image": "${var.image_url}",
+      "portMappings": [{
+        "containerPort": "${var.acme_api_aws_lb_target_group_port}"
+      }],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "${var.hello_world_aws_region}",
+          "awslogs-group": "/ecs/${var.acme_api_aws_ecs_service_name}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ])
   ts_aws_ecs_task_definition_cpu                      = var.acme_api_aws_ecs_task_definition_cpu
   ts_aws_ecs_task_definition_memory                   = var.acme_api_aws_ecs_task_definition_memory
   ts_aws_ecs_task_definition_requires_compatibilities = var.acme_api_aws_ecs_task_definition_requires_compatibilities

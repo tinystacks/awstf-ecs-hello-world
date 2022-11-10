@@ -59,64 +59,6 @@ variable "hello_world_private_isolated_cidr_blocks" {
 
 /* */
 
-// Not Used
-variable "hello_world_vpc_security_group_rules" {
-  description = "Hello World VPC Security Group rules"
-
-  type = list(object({
-    rule_type   = string
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-
-  default = [
-    {
-      rule_type   = "ingress"
-      description = "Ping"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "ICMP"
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    {
-      rule_type   = "egress"
-      description = "Outbound"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
-}
-
-/* */
-
-// Not Used
-variable "hello_world_aws_ami_filter_name_values" {
-  description = "Hello World AWS AMI filter name:values"
-  type        = list(string)
-  default     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"] 
-}
-
-// Not Used
-variable "hello_world_aws_ami_owners" {
-  description = "Hello World AWS AMI owners"
-  type        = list(string)
-  default     = ["099720109477"] 
-}
-
-// Not Used
-variable "hello_world_aws_instance_type" {
-  description = "Hello World AWS Instance type"
-  type        = string
-  default     = "t2.micro"
-}
-
-/* */
-
 variable "acme_aws_ecs_cluster_name" {
   description = "Acme AWS ECS Cluster Name"
   type        = string
@@ -288,26 +230,10 @@ variable "acme_api_aws_ecs_service_launch_type" {
 }
 
 // We really only need to accept the image url; everything else here was already declared in other variables.
-variable "acme_api_aws_ecs_task_definition_container_definitions" {
-  description = "Acme API AWS ECS task definition container definitions"
+variable "image_url" {
+  description = "Image Url for the Docker image to use"
   type        = string
-  default     = <<EOF
-[{
-"name": "acme-api",
-"image": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
-"portMappings": [{
-	"containerPort": 8000
-}],
-"logConfiguration": {
-	"logDriver": "awslogs",
-	"options": {
-		"awslogs-region": "us-east-2",
-		"awslogs-group": "/ecs/acme-api",
-		"awslogs-stream-prefix": "ecs"
-	}
-}
-}]
-  EOF
+  default     = "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86"
 }
 
 variable "acme_api_aws_ecs_task_definition_cpu" {

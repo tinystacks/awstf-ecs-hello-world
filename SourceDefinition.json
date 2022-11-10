@@ -90,11 +90,11 @@
       "required": false,
       "categories": ["buildAndScale"]
     },
-    "acme_api_aws_ecs_task_definition_container_definitions": {
-      "defaultValue": "[{\"name\":\"hello-world-api\",\"image\":\"public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86\",\"portMappings\":[{\"containerPort\":8000}],\"logConfiguration\":{\"logDriver\":\"awslogs\",\"options\":{\"awslogs-region\":\"us-east-2\",\"awslogs-group\":\"/ecs/hello-world-api\",\"awslogs-stream-prefix\":\"ecs\"}}}]",
-      "displayName": "Container Definition",
+    "image_url": {
+      "defaultValue": "public.ecr.aws/tinystacks/aws-docker-templates-express:latest-x86",
+      "displayName": "Image Url",
       "propertyType": "String",
-      "description": "What Container Definition would you like to launch? (Only change this if you update the Application Port to match!)",
+      "description": "What Docker iamge would you like to launch? (Only change this if you update the Application Port to match!)",
       "required": false,
       "categories": ["buildAndScale"]
     },
