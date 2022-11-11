@@ -20,6 +20,12 @@ variable "hello_world_aws_vpc_cidr_newbits" {
 
 /* */
 
+# Start Comment Block
+# These variables are unnecessarily complex.
+# We could just accept a list of availability zones,
+# or even just a number of availability zones and use the aws_availability_zones data source with the region to grab them automatically.
+# Unfortunantely, this is something we cannot mask from the source/stitcher;
+# it needs to be better abstracted in the module itself.
 variable "hello_world_public_igw_cidr_blocks" {
   type = map(number)
   description = "Hello World Availability Zone CIDR Mapping for Public IGW subnets"
@@ -56,6 +62,7 @@ variable "hello_world_private_isolated_cidr_blocks" {
     "us-east-2c" = 9
   }
 }
+# End Comment Block
 
 /* */
 
