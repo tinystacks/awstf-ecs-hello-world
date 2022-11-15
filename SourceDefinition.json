@@ -1,6 +1,6 @@
 {
   "owner": "group:TinyStacks",
-  "name": "aws-terrafrom-ecs-hello-world",
+  "name": "aws-terraform-ecs-hello-world",
   "description": "This stack launches a VPC, an Application Load Balancer, and an ECS Farget Cluster and Service with a hello world app pre-loaded.",
   "cloudProvider": "aws",
   "repository": {
